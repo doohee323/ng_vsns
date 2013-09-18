@@ -18,14 +18,18 @@ angular.module('ngApp')
     //   { "description": "1"},
     //   { "description": "1"},
     // ];
+
     var items = $http.get('http://localhost:3000/items.json').success(function(data) {
       debugger;
       return data;
     });
-    var factory = {}; 
+
+    var factory = {};
+
     factory.getItems = function() { 
       return items; 
     };
+
     return factory; 
   })
   .controller('ItemsCtrl', function($scope, itemFactory) {
