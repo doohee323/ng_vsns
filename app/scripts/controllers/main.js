@@ -19,15 +19,17 @@ angular.module('ngApp')
     //   { "description": "1"},
     // ];
 
-    var items = $http.get('http://localhost:3000/items.json').success(function(data) {
-      debugger;
-      return data;
+//    delete $http.defaults.headers.common['X-Requested-With'];
+//    $http.defaults.useXDomain = true;
+
+    var items = $http.get('http://vsns.ror.la/items.json').success(function(response) {
+      return response;
     });
 
     var factory = {};
 
     factory.getItems = function() { 
-      return items; 
+      return items;
     };
 
     return factory; 

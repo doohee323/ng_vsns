@@ -1,6 +1,8 @@
-<ul ng-controller="ItemsCtrl">
-  <li ng-repeat="item in items">
-    {{item.description}}
+<ul class="items" ng-controller="ItemsCtrl">
+  <li class="item" ng-repeat="item in items.data">
+        <div class="photo"><img ng-src="{{ item.photo.photo.thumb.url }}" /></div>
+        <div class='description'>{{ item.description }}</div>
+
   </li>
 </ul>
 <hr>

@@ -30,3 +30,26 @@ body {
     line-height: 1;
     letter-spacing: -1px;
 }
+
+.items {
+  margin-left:0;
+  .item {
+    overflow: auto;
+    list-style:none;
+    border:1px solid #eaeaea;
+    position:relative;
+    min-height:100px;
+    margin-bottom:1em;
+    padding:1em;
+    .photo{
+      position:absolute;
+      left:1em;
+      top:1em;
+      width:100px;
+    }
+    .description {
+      margin-left: 110px;
+    }
+  }
+
+}
