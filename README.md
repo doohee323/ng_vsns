@@ -3,6 +3,25 @@ NG-VSNS
 
 : AngularJS Project for VSNS
 
+
+##### 2013년 9월 26일 => CRUD 액션에 대한 AngularJS 스크립트 완성함.
+
+* Post를 업데이트시 목록 중 해당 post의 내용을 갱신하지 못했던 부분을 해결함.
+
+```
+$http.put("http://localhost:3000/posts/" + $scope.post.id + '.json', { post: $scope.post })
+  .success(function (data, status, headers, config) {
+    for (var i in $scope.posts) {
+      if ($scope.posts[i].id == data.id) {
+        $scope.posts[i] = data;
+      }
+    }
+  }).error(function (data, status, headers, config) {
+    alert("failure");
+    // TODO
+  });
+```
+
 ##### 2013년 9월 18일 추석전날 (push #2)
 
 * VSNS 서버로부터 JSON 데이터를 불러오지 못하는 것은 AnngularJS의 $httpProivder에 아래의 설정을 추가해 주어서 해결할 수 있었습니다.
