@@ -7,9 +7,13 @@ angular.module('ngApp', [])
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-      .when('/items', {
-        templateUrl: 'views/items.html',
-        controller: 'ItemsCtrl'
+      .when('/posts', {
+        templateUrl: 'views/partials/posts.html',
+        controller: 'PostsCtrl'
+      })
+      .when('/login', {
+        templateUrl: 'views/partials/login.html',
+        controller: 'LoginCtrl'
       })
       .otherwise({
         redirectTo: '/'

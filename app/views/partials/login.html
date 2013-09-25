@@ -1,0 +1,18 @@
+
+    <div class="row-fluid">
+        <div class="span4 offset4 well">
+            <legend>Please Sign In</legend>
+            <div class="alert alert-error">
+                <a class="close" data-dismiss="alert" href="#">×</a>Incorrect Email or Password!
+            </div>
+            <form name='loginForm' ng-submit="login()" ng-controller="LoginCtrl" accept-charset="UTF-8">
+                <input type="text" ng-model='email' class="span12" placeholder="Email" ng-required>
+                <input type="password"
+                       ng-model='password' class="span12" placeholder="Password" ng-required>
+                <label class="checkbox">
+                    <input type="checkbox" name="remember" value="1"> Remember Me
+                </label>
+                <button type="submit" name="submit" class="btn btn-info btn-block">Sign in</button>
+            </form>
+        </div>
+    </div>

@@ -7,33 +7,83 @@ angular.module('ngApp')
       'AngularJS',
       'Karma'
     ];
-  });
-
-angular.module('ngApp')
-  .factory('itemFactory', function($http) {
-    // var items = [
-    //   { "description": "1"},
-    //   { "description": "1"},
-    //   { "description": "1"},
-    //   { "description": "1"},
-    //   { "description": "1"},
-    // ];
-
-//    delete $http.defaults.headers.common['X-Requested-With'];
-//    $http.defaults.useXDomain = true;
-
-    var items = $http.get('http://vsns.ror.la/items.json').success(function(response) {
-      return response;
-    });
-
-    var factory = {};
-
-    factory.getItems = function() { 
-      return items;
-    };
-
-    return factory; 
   })
-  .controller('ItemsCtrl', function($scope, itemFactory) {
-    $scope.items = itemFactory.getItems();
+  .controller('LoginCtrl', function($scope){
+    $scope.login = function() {
+      if (this.email) {
+        alert(this.email);
+      }
+    };
+  })
+  .controller('PostsCtrl', function($scope, $http) {
+    $http.get('http://localhost:3000/posts.json')
+      .success(function(data, status, headers, config) {
+        // this callback will be called asynchronously
+        // when the response is available
+        $scope.posts = data;
+        $scope.formState = "Create";
+      })
+      .error(function(data, status, headers, config) {
+        // called asynchronously if an error occurs
+        // or server returns response with status
+        // code outside of the <200, 400) range
+      });
+    $scope.submit = function() {
+      if ($scope.formState == "Create"){
+        $http.post("http://localhost:3000/posts", { post: $scope.post })
+          .success(function (data, status, headers, config) {
+            // TODO
+            $scope.posts.unshift( data );
+          }).error(function (data, status, headers, config) {
+            // TODO
+          });
+
+      } else if ($scope.formState == "Update") {
+        $http.put("http://localhost:3000/posts/" + $scope.post.id + '.json', { post: $scope.post })
+          .success(function (data, status, headers, config) {
+            // TODO
+            // Refresh the post with updated values
+            $scope.posts[index] = data;
+          }).error(function (data, status, headers, config) {
+            alert("failure");
+            // TODO
+          });
+      };
+      $scope.post = {};
+      $scope.formState = "Create";
+    };
+    $scope.deletePost = function(post){
+      if (confirm('Are you sure?') == true) {
+        $http.delete('http://localhost:3000/posts/'+post.id  );
+        var index = $scope.posts.indexOf(post);
+        $scope.posts.splice(index,1);
+      }
+    };
+    $scope.editPost = function(post, index){
+      $http.get('http://localhost:3000/posts/' + post.id + '.json')
+        .success(function(data, status, headers, config) {
+          // this callback will be called asynchronously
+          // when the response is available
+          $scope.post = data;
+          $scope.formState = "Update";
+        })
+        .error(function(data, status, headers, config) {
+          // called asynchronously if an error occurs
+          // or server returns response with status
+          // code outside of the <200, 400) range
+        });
+    };
+  })
+  .directive('showonhoverparent',
+    function() {
+      return {
+        link : function(scope, element, attrs) {
+          element.parent().bind('mouseenter', function() {
+            element.show();
+          });
+          element.parent().bind('mouseleave', function() {
+            element.hide();
+          });
+        }
+      };
   });
