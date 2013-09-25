@@ -41,9 +41,11 @@ angular.module('ngApp')
       } else if ($scope.formState == "Update") {
         $http.put("http://localhost:3000/posts/" + $scope.post.id + '.json', { post: $scope.post })
           .success(function (data, status, headers, config) {
-            // TODO
-            // Refresh the post with updated values
-            $scope.posts[index] = data;
+            for (var i in $scope.posts) {
+              if ($scope.posts[i].id == data.id) {
+                $scope.posts[i] = data;
+              }
+            }
           }).error(function (data, status, headers, config) {
             alert("failure");
             // TODO
