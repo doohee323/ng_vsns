@@ -21,7 +21,8 @@ app.controller('LoginCtrl', function($scope) {
 });
 
 /**
- * @param $scope, $http, $location, transManager, postsService
+ * @param $scope,
+ *            $http, $location, transManager, postsService
  * @desc PostsCtrl 처리 : posts.html 를 위한 controller
  */
 app.controller('PostsCtrl', function($scope, $http, $location, transManager, postsService) {

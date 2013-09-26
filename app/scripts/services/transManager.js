@@ -1,23 +1,24 @@
 'use strict';
 
 var headers = {
-		'Accept' : 'application/json',
-		'Content-type' : 'application/json',
+	'Accept' : 'application/json',
+	'Content-type' : 'application/json',
 };
 
 /**
  * @desc transaction 처리
- */	
+ */
 app.service('transManager', function() {
 	var $http;
 	this.init = function(_$http) {
 		$http = _$http;
 	};
-	
+
 	/**
-	 * @param url, type, input, callback
+	 * @param url,
+	 *            type, input, callback
 	 * @desc 조회 처리 (get 방식의 parameter 처리)
-	 */		
+	 */
 	this.retrieve = function(url, type, input, callback) {
 		$http({
 			method : type,
@@ -32,11 +33,12 @@ app.service('transManager', function() {
 			callback(data);
 		});
 	};
-	
+
 	/**
-	 * @param url, type, data, callback
+	 * @param url,
+	 *            type, data, callback
 	 * @desc 저장 처리 (post 방식의 parameter 처리)
-	 */		
+	 */
 	this.save = function(url, type, data, callback) {
 		$http({
 			method : type,
