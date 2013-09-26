@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('ngApp')
-  .controller('MainCtrl', function ($scope) {
+app.controller('MainCtrl', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -16,7 +15,7 @@ angular.module('ngApp')
     };
   })
   .controller('PostsCtrl', function($scope, $http) {
-    $http.get('http://localhost:3000/posts.json')
+    $http.get(config.url + 'posts.json')
       .success(function(data, status, headers, config) {
         // this callback will be called asynchronously
         // when the response is available
@@ -30,7 +29,7 @@ angular.module('ngApp')
       });
     $scope.submit = function() {
       if ($scope.formState == "Create"){
-        $http.post("http://localhost:3000/posts", { post: $scope.post })
+        $http.post(config.url + 'posts', { post: $scope.post })
           .success(function (data, status, headers, config) {
             // TODO
             $scope.posts.unshift( data );
@@ -39,7 +38,7 @@ angular.module('ngApp')
           });
 
       } else if ($scope.formState == "Update") {
-        $http.put("http://localhost:3000/posts/" + $scope.post.id + '.json', { post: $scope.post })
+        $http.put(config.url + 'posts/' + $scope.post.id + '.json', { post: $scope.post })
           .success(function (data, status, headers, config) {
             for (var i in $scope.posts) {
               if ($scope.posts[i].id == data.id) {
@@ -56,13 +55,13 @@ angular.module('ngApp')
     };
     $scope.deletePost = function(post){
       if (confirm('Are you sure?') == true) {
-        $http.delete('http://localhost:3000/posts/'+post.id  );
+        $http.delete(config.url + 'posts/'+post.id  );
         var index = $scope.posts.indexOf(post);
         $scope.posts.splice(index,1);
       }
     };
     $scope.editPost = function(post, index){
-      $http.get('http://localhost:3000/posts/' + post.id + '.json')
+      $http.get(config.url + 'posts/' + post.id + '.json')
         .success(function(data, status, headers, config) {
           // this callback will be called asynchronously
           // when the response is available
@@ -75,17 +74,4 @@ angular.module('ngApp')
           // code outside of the <200, 400) range
         });
     };
-  })
-  .directive('showonhoverparent',
-    function() {
-      return {
-        link : function(scope, element, attrs) {
-          element.parent().bind('mouseenter', function() {
-            element.show();
-          });
-          element.parent().bind('mouseleave', function() {
-            element.hide();
-          });
-        }
-      };
   });

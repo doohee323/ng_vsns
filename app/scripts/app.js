@@ -1,7 +1,13 @@
 'use strict';
 
-angular.module('ngApp', [])
-  .config(function ($routeProvider) {
+var config = {
+//		url : 'http://localhost:3000/'
+	url : 'http://192.168.219.112:3000/'
+}
+
+var app = angular.module('ngApp', []);
+
+app.config(function($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
