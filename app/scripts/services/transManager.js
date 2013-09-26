@@ -5,11 +5,20 @@ var headers = {
 		'Content-type' : 'application/json',
 };
 
-var transManager = {};
-transManager.exec = function(url, type, params, callback, $http, $httpBackend, $templateCache) {
-	var input = JSON.stringify(params);
-
-	transManager.retrieve = function() {
+/**
+ * @desc transaction 처리
+ */	
+app.service('transManager', function() {
+	var $http;
+	this.init = function(_$http) {
+		$http = _$http;
+	};
+	
+	/**
+	 * @param url, type, input, callback
+	 * @desc 조회 처리 (get 방식의 parameter 처리)
+	 */		
+	this.retrieve = function(url, type, input, callback) {
 		$http({
 			method : type,
 			url : url,
@@ -17,29 +26,28 @@ transManager.exec = function(url, type, params, callback, $http, $httpBackend, $
 			data : input,
 			headers : headers
 		}).success(function(data, status, headers, config) {
-			debugger;
 			callback(data);
 		}).error(function(data, status, headers, config) {
-			debugger;
 			data = status;
 			callback(data);
 		});
 	};
-
-	transManager.save = function() {
+	
+	/**
+	 * @param url, type, data, callback
+	 * @desc 저장 처리 (post 방식의 parameter 처리)
+	 */		
+	this.save = function(url, type, data, callback) {
 		$http({
 			method : type,
 			url : url,
-			data : input,
+			data : data,
 			headers : headers
 		}).success(function(data, status, headers, config) {
-			debugger;
 			callback(data);
 		}).error(function(data, status, headers, config) {
-			debugger;
 			data = status;
 			callback(data);
 		});
 	};
-	return transManager;
-};
+});
